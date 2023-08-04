@@ -1,0 +1,118 @@
+
+<div class="gradient-wrapper">
+
+    <!-- Heading Section Starts -->
+
+    <section class="section-padding pb-0">
+        <div class="container">
+            <div class="section-heading text-center">
+                <h3 class="sec-head-title">Careers at <span class="text-red">Ozeki Sake USA</span></h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heading Section Ends -->
+
+    <!-- Careers Section Starts -->
+
+    <section class="careers-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="contact-us-form-box">
+                        <form id="careers_form" data-submit-btn-id="careers-add-btn-id" method="post" class="on_click_submit" role="form">
+                            <div class="checkbox-outer-shell mb-4 " >
+                                <label class="form-label strong-label">Please Select Job Position<sup
+                                        class="mandat-star">*</sup></label>
+                                <div class="form-group">
+                                <div class="checkboxshell ">
+                                    <input id="cbx" class="cbxcls job-position" type="checkbox" name="job_position[]" id="bottling_sup"/>
+                                    <label class="cbx" for="cbx"></label>
+                                    <label class="lbl" for="cbx">Bottling Assistant Supervisor 
+                                        <a href="#!" class="red-link job-link">Job Description</a> 
+                                    </label>
+                                    
+                                </div>
+                                <div class="checkboxshell">
+                                    <input id="cbx1" class="cbxcls job-position" type="checkbox" name="job_position[]" id="production_assc"/>
+                                    <label class="cbx" for="cbx1"></label>
+                                    <label class="lbl" for="cbx1">Production Line & Warehouse Associate 
+                                        <a href="#!" class="red-link job-link">Job Description</a> 
+                                    </label>
+                                </div>
+                                <div class="checkboxshell">
+                                    <input id="cbx2" class="cbxcls job-position" type="checkbox" name="job_position[]" id="tasting_assc"/>
+                                    <label class="cbx" for="cbx2"></label>
+                                    <label class="lbl" for="cbx2">Tasting Room Associate 
+                                        <a href="#!" class="red-link job-link">Job Description</a> 
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">First name <sup class="mandat-star">*</sup></label>
+                                <input type="text" class="form-control" placeholder="First Name" id="firstname" name="firstname">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">last name <sup class="mandat-star">*</sup></label>
+                                <input type="text" class="form-control" placeholder="Last Name" id="lastname" name="lastname">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">email <sup class="mandat-star">*</sup></label>
+                                <input type="text" class="form-control" placeholder="Email" id="email" name="email">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">Telephone (Format: 999-999-9999) <sup
+                                        class="mandat-star">*</sup></label>
+                                <input type="text" class="form-control" placeholder="Phone Number" id="telephone" name="telephone">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">Please upload your resume document <sup
+                                        class="mandat-star">*</sup></label>
+                                <div class="file-group">
+                                    <i><img src="<%= WEBSITE_PUBLIC_IMG_URL%>assets/images/red-file-upload.svg"></i>
+                                    <p class="file-text">Drag & Drop File or <span class="red-text">Browse</span></p>
+                                    <input type="file" class="form-control" name="resume" id="resume" multiple>
+                                </div>
+                                <span class="file-info-text">(pdf, doc or zip multiple files are accepted.)</span>
+                            </div>
+
+                            <div class="btn-shell form-btn-shell">
+                                <button class="btn btn-submit" id="careers-add-btn-id" type="button" >submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section Ends -->
+
+    <!-- Subscription Section Starts -->
+
+    <%- include("../../elements/newsletter.html");%>
+
+    <!-- Subscription Section Ends -->
+
+</div>
+<script src="<%= WEBSITE_PUBLIC_IMG_URL%>assets/js/jquery-3.3.1.min.js"></script>
+<script src="<%= WEBSITE_PUBLIC_IMG_URL%>assets/js/jquery.form.js"></script>
+<script src="<%= WEBSITE_PUBLIC_IMG_URL%>public/assets/js/custom.js"></script>
+<script type="text/javascript">
+
+    /**
+        * Function to submit form
+        */
+    $('.btn-submit').click(function(){
+        var btnId = $(this).attr('id');
+        startTextLoading(btnId);
+        ajax_submit('careers_form',function(status,response){
+            if(status){
+                window.location.href = response.redirect_url;
+            }else{
+                stopTextLoading(btnId);
+            }
+        });
+    });
+</script>

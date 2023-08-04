@@ -1,0 +1,126 @@
+<%	
+	type		=	(typeof type !== typeof undefined)			?	type		:""; 
+	displayType	=	(typeof displayType !== typeof undefined)	?	displayType	:__('admin.master.master'); 
+	parentList	=	(typeof parent_list !== typeof undefined)	?	parent_list	:""; 
+%>
+<div class="container-fluid" id="main-container">
+	<div class="row clearfix" >
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2> <%= __("admin.system.add")+" "+displayType;%> </h2>
+					<ul class="header-dropdown m-r--5 btn-right-top-margin">
+						<li>
+							<a href="<%=admin_list_url+"/"+type%>" ><button type="button" class="btn bg-indigo waves-effect"><i class="material-icons font-14">keyboard_backspace</i> <%= __("admin.system.back"); %></button></a>
+						</li>
+					</ul>
+				</div>
+				<div class="body">
+					<!-- Multilanguage tabs -->
+						<%- include ../../elements/multilanguage_tabs.html %>
+					<!-- Multilanguage tabs -->
+					<form id="add-master" data-submit-btn-id="master-add-btn-id" method="post" class="on_click_submit" role="form">
+						<!-- Tab panes -->
+						<div class="tab-content mt-20">
+							<%
+							if(typeof language_list !== typeof undefined && Array.isArray(language_list) && language_list.length > 0){
+								language_list.forEach(function(languages){
+									languageId 		= (languages._id) 		?  languages._id 		:"";
+									languageCode 	= (languages.lang_code) ?  languages.lang_code 	:"";
+									%>
+									<div role="tabpanel" class="tab-pane multi-lang-tab-pane fade in <%= (languageCode == DEFAULT_LANGUAGE_CODE) ? 'active' : ''; %>" id="multi_lang_<%= languageCode; %>">
+										<div class="row clearfix">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label for="name_<%= languageCode; %>" class="control-label">
+															<%= __("admin.master.name"); %>
+															<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+																<span class="required"> *</span>
+															<% } %> 
+														</label>
+														<input type="hidden" name="master_descriptions[<%= languageId %>][language_id]" value="<%= languageId; %>"/>
+														<input type="text" id="name_<%= languageCode; %>" class="form-control" name="master_descriptions[<%= languageId%>][name]"/>
+													</div>
+													
+													<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+														<span id="name_error" class="error"></span>
+													<% } %>
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label for="amount" class="control-label">
+															<%= __("admin.master.order"); %><span class="required"> * </span>
+														</label>
+														<input type="text" id="order_<%= languageCode; %>" class="form-control" name="master_descriptions[<%= languageId%>][order]"/>
+													</div>
+													
+													<span id="order_error" class="error"></span>
+												</div>
+											</div>
+											<% if(type && type =='category'){ %>
+												<div class="col-sm-12">
+													<div class="form-group">
+														<div class="form-line">
+															<label for="description" class="control-label"><%= __('admin.product.description'); %><span class="required"> * </span> </label>
+															<textarea name="master_descriptions[<%= languageId%>][description]" id="description_<%= languageCode; %>"  class="form-control"></textarea>
+														</div>
+														<span id="description_error" class="error"></span>
+													</div>
+												</div>
+											<% }%>
+										</div>
+									</div><% 
+								}); 
+							} %>
+						</div>
+						<div>
+							<button type="button" id="master-add-btn-id" class="btn bg-pink btn-sm waves-effect btn-submit" <%- ADMIN_LOADING_TEXT %> ><i class="material-icons font-14">save</i> <%= __("admin.system.submit"); %></button>
+							<a href="javascript:location.reload(true);" class="text-decoration-none"><button type="button" class="btn bg-blue-grey btn-sm waves-effect"><i class="material-icons font-14">refresh</i> <%= __("admin.system.reset"); %></button></a>
+							<a href="<%=admin_list_url+"/"+type%>"><button type="button" class="btn bg-brown btn-sm waves-effect"><i class="material-icons font-14">cancel</i><%= __("admin.system.cancel"); %></button></a>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- contentFor('css') %>
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_CSS_PATH%>jquery-filestyle.min.css">
+	<link rel="stylesheet" href="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/css/bootstrap-select.css">
+	
+<%- contentFor("script") %>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PATH%>jquery-filestyle.min.js"></script>
+	<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>bootstrap-select/js/bootstrap-select.js"></script>
+	<script src="<%=WEBSITE_ADMIN_JS_PLUGIN_PATH%>ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		if('<%= type%>' == 'category'){
+			CKEDITOR.replace('description_<%= languageCode; %>', { 
+				imageUploadURL: '<%= WEBSITE_ADMIN_URL%>ckeditor_uploader/',
+			});
+		}
+		$(document).ready(function() {
+			/** file browser **/
+			$(".jfilestyle").jfilestyle({input: false});
+		
+			/**
+			 * Function to submit form
+			 */
+			$('.btn-submit').click(function(){
+				var btnId = $(this).attr('id');
+				startTextLoading(btnId);
+				if('<%= type%>' == 'category') updateCkeditorValue();
+				submit_multipart_form("add-master",function(status,response){
+					if(status){
+						window.location.href = response.redirect_url;
+					}else{
+						changeTab('<%= DEFAULT_LANGUAGE_CODE %>');
+						stopTextLoading(btnId);
+					}
+				});
+			});
+		});
+	</script>

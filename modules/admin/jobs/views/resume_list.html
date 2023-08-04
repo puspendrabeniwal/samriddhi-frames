@@ -1,0 +1,136 @@
+
+<div class="container-fluid">
+	<!--Search Start -->
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="panel-group" id="panel-group-id" role="tablist" aria-multiselectable="true">
+				<div class="panel panel-col-pink">
+					<div class="panel-heading" role="tab" id="panel-heading-id">
+						<h4 class="panel-title">
+							<a role="button" data-toggle="collapse" data-target="#panel-collapse-id" data-parent="#panel-group-id" href="javascript:void(0)" aria-expanded="false"
+							   aria-controls="panel-collapse-id">
+								<i class="material-icons">search</i> <%= __("admin.system.search"); %>
+								<span class="pull-right collapse-toggle-icon"></span>
+							</a>
+						</h4>
+					</div>
+					<div id="panel-collapse-id" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="panel-heading-id">
+						<div class="panel-body">
+							<form id="searchForm" name="searchForm" >
+								<div class="row clearfix dataTables_wrapper">
+									<!-- Search by title -->
+									<div class="col-xs-12 col-sm-5">
+										<div class="form-group">
+											<div class="form-line">
+												<input class="form-control" id="column_filter_0"  onkeyup="searchDatatable(0)" placeholder="<%= __('admin.contact.search_by_name'); %>" name="name">
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-5">
+										<div class="form-group">
+											<div class="form-line">
+												<input class="form-control" id="column_filter_2"  onkeyup="searchDatatable(2)" placeholder="<%= __('admin.contact.search_by_email'); %>" name="email">
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-2">
+										<button type="button" id="reset" class="btn btn-sm waves-effect btn-danger">
+											<%= __("admin.system.reset")%>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Search End -->
+
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="card">
+				<div class="header">
+					<h2>
+						<%=  __("admin.job.forms_and_resume"); %>
+					</h2>
+
+				</div>
+				<div class="body">
+					<table id="datatable-listing" class="row-border full-length-header hover table table-bordered cb-data-table" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th width="17%"><%= __("admin.career.first_name");%></th>
+								<th width="17%"><%= __("admin.career.last_name");%></th>
+								<th width="17%"><%= __("admin.career.email");%></th>
+								<th width="17%"><%= __("admin.career.telephone");%></th>
+								<th width="17%"><%= __("admin.career.resume");%></th>
+								<th width="17%"><%= __("admin.system.created"); %> </th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- contentFor("script") %>
+<script type="text/javascript">
+	/** Function to initialize datatable and get server side data*/
+	var statusObject 	= 	<%- JSON.stringify(GLOBAL_STATUS_SEARCH_DROPDOWN)%>;
+	var dataTable		=	"";
+	$(document).ready(function() {
+		dataTable = $('#datatable-listing').DataTable({
+			"bStateSave"	: true,
+			"fnStateSave"	: function (oSettings, oData) {
+				localStorage.setItem( 'DataTables', JSON.stringify(oData) );
+			},
+			"fnStateLoad"	: function (oSettings) {
+				return JSON.parse( localStorage.getItem('DataTables') );
+			},
+			"order"		: 	[[5, "desc" ]],
+			"sDom"		:	"ltipr",
+			"serverSide": 	true,
+			"scrollX"	: 	true,
+			"lengthMenu":	PAGING_LENGTH_MENU,
+			"columns"	: 	[
+				{ "data": 'first_name' },
+				{ "data": 'last_name' },
+				{ "data": 'email' },
+				{ "data": 'telephone' },
+				{ "data": "resume", 
+				 "render" : function(link){
+					let filePath = '<%=USERS_FILE_PATH%>'+link;
+					let fileName = link.split("/");
+					let downloadLink = '<a href='+filePath +' download>'+'<i class="material-icons">download</i>'+'</a>';
+					 return downloadLink;
+				 } },
+
+				{
+					"data"			: 	'modified',
+					"searchable"	: 	false,
+					"render" 		: 	function(modified){
+						return moment(modified).tz(DEFAULT_TIME_ZONE).format(DATATABLE_DATE_TIME_FORMAT) ;
+					}
+				},
+			],
+			"ajax":{
+				url 	:	"<%=admin_list_url%>/resume_list/<%=careerId%>",
+				type	: 	"POST",
+				dataSrc	: 	function(res){
+					return res.data;
+				}
+			}
+		});
+	});
+
+	/** Javascript function to search datatable */
+	function searchDatatable(columnNumber){
+		var query= $('#column_filter_'+columnNumber).val();
+		dataTable.column(columnNumber).search(query).draw()
+	}//end searchDatatable()
+</script>
+<script type="text/javascript" src="<%=WEBSITE_ADMIN_JS_PATH%>datatable_state_storage.js"></script>
