@@ -35,7 +35,6 @@
     "is-base64": "^1.1.0",
     "md5": "^2.2.1",
     "mongodb": "^3.7.4",
-    "mongoose": "^5.9.28",
     "node-cache": "^4.2.0",
     "node-forge": "^0.9.1",
     "nodemailer": "^4.6.7",
@@ -43,16 +42,9 @@
     "quickthumb": "0.0.12",
     "randomstring": "^1.1.5",
     "request": "^2.88.2",
-    "request-promise-native": "^1.0.8",
-    "response-time": "^2.3.2",
     "slug": "^0.9.1",
     "striptags": "^3.1.1",
-    "time": "^0.12.0",
-    "twilio": "^3.17.3",
-    "uid2": "0.0.3",
-    "unirest": "^0.6.0",
-    "utf8": "^3.0.0",
-    "xlsx": "^0.12.13"
+    "time": "^0.12.0"
   },
   "scripts": {
     "start": "node index"
