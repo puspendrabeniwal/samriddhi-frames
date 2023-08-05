@@ -1,5 +1,5 @@
 /** Website root directory path */
-WEBSITE_ROOT_PATH	=	 "C:/ProjectMERN/samriddhiframes/backend/";
+WEBSITE_ROOT_PATH	=	 "process.env.PWD";
 
 /** Website Push notification server key for Android devices */
 WEBSITE_PN_ANDROID_SERVER_KEY =	process.env.ANDROID_SERVER_KEY;
