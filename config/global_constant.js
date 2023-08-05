@@ -1,5 +1,5 @@
 /** Website root directory path */
-WEBSITE_ROOT_PATH	=	 process.env.PWD;
+WEBSITE_ROOT_PATH	=	 '/opt/render/project/src/';
 
 /** Website Push notification server key for Android devices */
 WEBSITE_PN_ANDROID_SERVER_KEY =	process.env.ANDROID_SERVER_KEY;
