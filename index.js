@@ -14,7 +14,19 @@ i18n.configure({
 });
 app.use(i18n.init);
 
+/** required for Helmet (Secure Web) */
+const helmet = require('helmet');
+app.use(helmet());
 
+
+/** required for Compression */
+const compression = require('compression')
+
+/* compress all responses */
+app.use(compression({
+	level : 9,
+	memLevel : 9
+}));
 
 /**  Set Breadcrumbs home information */
 const breadcrumbs = require('express-breadcrumbs');
@@ -66,7 +78,7 @@ app.use(express.static(__dirname + '/public'));
 /** Use to upload files */
 const	fileUpload = require('express-fileupload');
 app.use(fileUpload());
-	
+
 /**  This module is used for flash messages in the system */
 const flash  = require('express-flash');
 app.use(flash());
