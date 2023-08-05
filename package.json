@@ -11,7 +11,13 @@
     "express-fileupload": "^0.3.0",
     "express-flash": "^0.0.2",
     "express-session": "^1.0.0",
-    "express-validator": "^4.3.0"
+    "express-validator": "^4.3.0",
+    "i18n": "^0.8.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",  
+    "fs": "^0.0.1-security"
   },
   "scripts": {
     "start": "node index"
