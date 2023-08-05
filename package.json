@@ -63,7 +63,7 @@
     "start": "node index"
   },
    "engines": {
-    "node": ">=14 <15"
+    "node": ">=16 <17"
   },
   "author": "Blue Zone",
   "license": "Blue Zone"
