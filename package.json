@@ -63,6 +63,9 @@
   "scripts": {
     "start": "node index"
   },
+   "engines": {
+    "node": ">=16 <17"
+  },
   "author": "Blue Zone",
   "license": "Blue Zone"
 }
