@@ -110,9 +110,15 @@ BREADCRUMBS = {
 		'admin/distributors/edit' : [{name:'Distributors',url:WEBSITE_ADMIN_URL+'distributors/',icon:'person'},{name:'Edit',url:'',icon:'mode_edit'}],
 		'admin/distributors/add'  : [{name:'Distributors',url:WEBSITE_ADMIN_URL+'distributors/',icon:'person'},{name:'Add',url:'',icon:'add'}],
 
-		/** BANNERS SECTION**/
-		'admin/banners/list' : [{name:'Banners',url:'',icon:'image'}],
-		'admin/banners/edit' : [{name:'Banners',url:WEBSITE_ADMIN_URL+'banners/',icon:'image'},{name:'Edit',url:'',icon:'mode_edit'}],
+		/** TESTIMONIALS SECTION**/
+		'admin/testimonials/list' : [{name:'Testimonials',url:'',icon:'image'}],
+		'admin/testimonials/add' : [{name:'Testimonials',url:WEBSITE_ADMIN_URL+'testimonials/',icon:'image'},{name:'Add',url:'',icon:'add'}],
+		'admin/testimonials/edit' : [{name:'Testimonials',url:WEBSITE_ADMIN_URL+'testimonials/',icon:'image'},{name:'Edit',url:'',icon:'mode_edit'}],
+		
+		/** BLOCK SECTION**/
+		'admin/block/list' : [{name:'Block',url:'',icon:'image'}],
+		'admin/block/add' : [{name:'Block',url:WEBSITE_ADMIN_URL+'block/',icon:'image'},{name:'Add',url:'',icon:'add'}],
+		'admin/block/edit' : [{name:'Block',url:WEBSITE_ADMIN_URL+'block/',icon:'image'},{name:'Edit',url:'',icon:'mode_edit'}],
 		
 };
 

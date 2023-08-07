@@ -314,14 +314,14 @@ module.exports = {
 		/** Include Slider Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"slider/routes");
 
-		/** Include Banner Module **/
-		require(WEBSITE_ADMIN_MODULES_PATH+"banners/routes");
+		/** Include Testimonials Module **/
+		require(WEBSITE_ADMIN_MODULES_PATH+"testimonials/routes");
 
 		/** Include product Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"products/routes");
 
-		/** Include jobs Module **/
-		require(WEBSITE_ADMIN_MODULES_PATH+"jobs/routes");
+		/** Include block Module **/
+		require(WEBSITE_ADMIN_MODULES_PATH+"block/routes");
 
 		/** Include distributors Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"distributors/routes");
@@ -347,79 +347,6 @@ module.exports = {
 			res.render("404");
 		});
 		
-		
-		/** Frontend layout **/
-		app.use(FRONT_END_NAME,function(req, res, next) {
-			res.locals.active_url 		=	req.path.split("/")[1];
-			res.locals.active_url_path 		=	req.path.split("/")[2];
-
-			/** Set default layout for admin **/
-			req.rendering.layout = WEBSITE_LAYOUT_PATH+"default";
-			next();
-		});
-
-																/** Front route start here */
-		/** Include home module **/
-		require(WEBSITE_MODULES_PATH+"home/routes");
-
-		/** Include products module **/
-		require(WEBSITE_MODULES_PATH+"products/routes");
-
-		/** Include contact-us module **/
-		require(WEBSITE_MODULES_PATH+"contact-us/routes");
-
-		/** Include careers module **/
-		require(WEBSITE_MODULES_PATH+"careers/routes");
-
-		/** Include faq module **/
-		require(WEBSITE_MODULES_PATH+"faq/routes");
-
-		/** Include distributors module **/
-		require(WEBSITE_MODULES_PATH+"distributors/routes");
-
-		/** Include history module **/
-		require(WEBSITE_MODULES_PATH+"history/routes");
-
-		/** Include how-sake-made module **/
-		require(WEBSITE_MODULES_PATH+"how-sake-made/routes");
-
-		/** Include how-to-enjoy-sake module **/
-		require(WEBSITE_MODULES_PATH+"how-to-enjoy-sake/routes");
-
-		/** Include faq module **/
-		require(WEBSITE_MODULES_PATH+"faq/routes");
-
-		/** Include mission-statement module **/
-		require(WEBSITE_MODULES_PATH+"mission-statement/routes");
-
-		/** Include president-message module **/
-		require(WEBSITE_MODULES_PATH+"president-message/routes");
-
-		/** Include privacy-policy module **/
-		require(WEBSITE_MODULES_PATH+"privacy-policy/routes");
-
-		/** Include tasting-room module **/
-		require(WEBSITE_MODULES_PATH+"tasting-room/routes");
-
-		/** Include types-sake module **/
-		require(WEBSITE_MODULES_PATH+"types-sake/routes");
-
-		/** Front route end here */
-
-		/** Route is used to render 404 page */
-		app.get(FRONT_END_NAME+"*", function(req, res){
-
-			let layout404 = WEBSITE_LAYOUT_PATH+"404";
-
-			/** Set current view folder **/
-			req.rendering.views		=	WEBSITE_MODULES_PATH+"elements/";
-
-			/** Set layout  404 **/
-			req.rendering.layout	=	layout404;
-
-			/**Render 404 page*/
-			res.render("404");
-		});
 
 
 		/** Error Handling */
