@@ -102,7 +102,8 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
                     <thead>
                         <tr>
                             <th><%= __('admin.product.product_name'); %></th>
-                            <th><%= __('admin.product.category'); %></th>
+                            <th><%= __('admin.product.price'); %></th>
+                            <th><%= __('admin.product.discount_price'); %></th>
                             <th><%= __('admin.system.status'); %></th>
                             <th><%= __('admin.system.created'); %></th>
                             <th> <%= __('admin.system.action'); %>  </th>
@@ -135,7 +136,7 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
             "fnStateLoad"   : function (oSettings) {
                 return JSON.parse( localStorage.getItem('DataTables'));
             },
-            "order"     :   [[3, "desc" ]],
+            "order"     :   [[4, "desc" ]],
             "sDom"      : "ltipr",
             "lengthMenu": PAGING_LENGTH_MENU,
             "serverSide": true,
@@ -145,7 +146,11 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
                     "data": 'product_name'
                 },
                 {
-                    "data"      : "category_name",
+                    "data"      : "price",
+                    
+                },
+                {
+                    "data"      : "discount_price",
                     
                 },
                 {
@@ -154,15 +159,10 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
                     "searchable"    : false,
                     "render": function(result){
                         var active   = (result && result.is_active)    ?  result.is_active   : "";
-                        var popular  = (result && result.is_popular)   ?  result.is_popular  : "";
-                        var isSaleOn = (result && result.is_sale_on)   ? result.is_sale_on   : "";
 
                         /** Active Status **/
                         var statusTab   = (active == '<%=ACTIVE%>') ? '<span class="label label-success m-l-5 m-t-5"><%=__("admin.system.active")%></span>': '<span class="label label-danger m-l-5 m-t-5"><%=__("admin.system.inactive")%></span>';
-                        statusTab       +=  '<br/>';
-                        statusTab       +=  (popular == '<%=ACTIVE%>') ? '<span class="label label-info m-l-5 m-t-5"><%=__("admin.system.popular")%></span>': '<span class="label label-warning m-l-5 m-t-5"><%=__("admin.system.unpopular")%></span>';
-                        statusTab       +=  '<br/>';
-                        statusTab       +=  (isSaleOn == '<%=ACTIVE%>') ? '<span class="label label-primary m-l-5 m-t-5"><%=__("admin.system.on_sale")%></span>': '<span class="label label-danger m-l-5 m-t-5"><%=__("admin.system.sale_off")%></span>';
+                     
                         return statusTab;
                     }
                 },
@@ -180,23 +180,11 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
                     "render"        : function(result){
                         var id      = (result._id)          ? result._id           : "";
                         var status  = (result.is_active)    ? result.is_active     : "<%=DEACTIVE%>";
-                        var popular = (result.is_popular)   ? result.is_popular    : "<%=NOT_POPULAR%>";
-                        var isSaleOn= (result.is_sale_on)   ? result.is_sale_on    : "<%=DEACTIVE%>";
-                        console.log(isSaleOn, "isSaleOn")
+
                         /** Status Link Label And Class **/
                         var statusLinkText  = (status == '<%= DEACTIVE %>') ? "<%= __('admin.system.activate'); %>"         : "<%= __('admin.system.deactive'); %>" ;
                         var statusLinkTitle = (status == '<%= DEACTIVE %>') ? "<%= __('admin.system.click_to_activate'); %>"  : "<%= __('admin.system.click_to_deactivate'); %>" ;
                         var statusLinkIcon  = (status == '<%= DEACTIVE %>') ? "done"    : "block";
-
-                        /** Popular Link Label And Class **/
-                        var popularLinkText  = (popular == '<%= NOT_POPULAR %>') ? "<%= __('admin.system.popular'); %>"         : "<%= __('admin.system.unpopular'); %>" ;
-                        var popularLinkTitle = (popular == '<%= NOT_POPULAR %>') ? "<%= __('admin.system.click_to_popular'); %>"  : "<%= __('admin.system.click_to_unpopular'); %>" ;
-                        var popularLinkIcon  = (popular == '<%= NOT_POPULAR %>') ? "done"    : "block";
-                        
-                        /** Is sale on Link Label And Class **/
-                        var isSaleOnLinkText  = (isSaleOn == '<%= DEACTIVE %>') ? "<%= __('admin.system.on_sale'); %>"         : "<%= __('admin.system.sale_off'); %>" ;
-                        var isSaleOnLinkTitle = (isSaleOn == '<%= DEACTIVE %>') ? "<%= __('admin.system.click_to_on_sale'); %>"  : "<%= __('admin.system.click_to_off_sale'); %>" ;
-                        var isSaleOnLinkIcon  = (isSaleOn == '<%= DEACTIVE %>') ? "done"    : "block";
 
                         var dropDownButton  =   ''+
                         '<div class="btn-group m-l-5 m-t-5">'+
@@ -224,20 +212,6 @@ var userType = (typeof user_type !== typeof undefined && user_type) ?   user_typ
                                     '<a href="javascript:void(0)" data-href="<%=admin_list_url%>/update_status/'+id+'/'+status+'/<%=ACTIVE_INACTIVE_STATUS%>" class=" waves-effect waves-block confirm_box" data-confirm-message="<%= __("admin.user.do_you_want_to_change_status"); %>" data-confirm-heading="<%= __("admin.system.are_you_sure") %>" title="'+statusLinkTitle+'">'+
                                         '<i class="material-icons">'+statusLinkIcon+'</i>'+
                                         statusLinkText+
-                                    '</a>'+
-                                '</li>'+
-                                /** popular Link  **/
-                                '<li>'+
-                                    '<a href="javascript:void(0)" data-href="<%=admin_list_url%>/update_popular_status/'+id+'/'+popular+'/<%=ACTIVE_INACTIVE_STATUS%>" class=" waves-effect waves-block confirm_box" data-confirm-message="<%= __("admin.user.do_you_want_to_change_status"); %>" data-confirm-heading="<%= __("admin.system.are_you_sure") %>" title="'+popularLinkTitle+'">'+
-                                        '<i class="material-icons">'+popularLinkIcon+'</i>'+
-                                        popularLinkText+
-                                    '</a>'+
-                                '</li>'+
-                                 /** Is on sale **/
-                                 '<li>'+
-                                    '<a href="javascript:void(0)" data-href="<%=admin_list_url%>/update_is_on_sale/'+id+'/'+isSaleOn+'/<%=ACTIVE_INACTIVE_STATUS%>" class=" waves-effect waves-block confirm_box" data-confirm-message="<%= __("admin.user.do_you_want_to_change_status"); %>" data-confirm-heading="<%= __("admin.system.are_you_sure") %>" title="'+isSaleOnLinkTitle+'">'+
-                                        '<i class="material-icons">'+isSaleOnLinkIcon+'</i>'+
-                                        isSaleOnLinkText+
                                     '</a>'+
                                 '</li>'+
                                 /** Delete Link */

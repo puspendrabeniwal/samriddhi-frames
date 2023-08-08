@@ -504,14 +504,6 @@ USER_STATUS_SEARCH_DROPDOWN = [
 		status_id	: SEARCHING_DEACTIVE,
 		status_name	: "Inactive",
 		status_type	: TYPE_DEACTIVE
-	},
-	{
-		status_id	: SEARCHING_POPULAR,
-		status_name	: "Popular"
-	},
-	{
-		status_id	: SEARCHING_NOT_POPULAR,
-		status_name	: "Unpopular"
 	}
 ];
 
