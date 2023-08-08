@@ -4,7 +4,7 @@
 			<div class="card">
 				<div class="header">
 					<h2>
-						<%= __('admin.cms.edit_cms'); %>
+						<%= __('admin.system.edit'); %>
 					</h2>
 					<ul class="header-dropdown m-r--5 btn-right-top-margin">
 						<li>
@@ -25,6 +25,7 @@
 									languageId 		= (languages._id) 		?  	languages._id 		:"";
 									languageCode 	= (languages.lang_code) ?	languages.lang_code :"";
 									name 			= (result.pages_descriptions && result.pages_descriptions[languageId] && result.pages_descriptions[languageId]['name']) ? result.pages_descriptions[languageId]['name'] :"";
+									title 			= (result.pages_descriptions && result.pages_descriptions[languageId] && result.pages_descriptions[languageId]['title']) ? result.pages_descriptions[languageId]['title'] :"";
 									body 			= (result.pages_descriptions && result.pages_descriptions[languageId] && result.pages_descriptions[languageId]['body']) ? result.pages_descriptions[languageId]['body'] :"";
 									%>
 									<div role="tabpanel" class="tab-pane multi-lang-tab-pane fade in <%= (languageCode == DEFAULT_LANGUAGE_CODE) ? 'active' : ''; %>" id="multi_lang_<%= languageCode; %>">
@@ -43,6 +44,24 @@
 													</div>
 													<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
 														<span id="name_error" class="error"></span>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row clearfix">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label for="title_<%= languageCode; %>" class="control-label">
+															<%= __('admin.block.title'); %>
+															<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+																<span class="required"> *</span>
+															<% } %>
+														</label>
+														<input type="text" id="title_<%= languageCode; %>" class="form-control" name="pages_descriptions[<%= languageId %>][title]" value="<%= title; %>"/>
+													</div>
+													<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+														<span id="title_error" class="error"></span>
 													<% } %>
 												</div>
 											</div>

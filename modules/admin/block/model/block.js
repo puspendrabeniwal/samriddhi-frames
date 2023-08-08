@@ -22,7 +22,7 @@ function Block() {
 				asyncParallel([
 					(callback)=>{
 						/** Get list of blocks **/
-						collection.find(dataTableConfig.conditions,{projection: {_id:1,page_name :1, name:1,body:1,modified:1,is_active:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err,result)=>{
+						collection.find(dataTableConfig.conditions,{projection: {_id:1,page_name :1, title:1, name:1,body:1,modified:1,is_active:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err,result)=>{
 							callback(err, result);
 						});
 					},
@@ -75,7 +75,7 @@ function Block() {
 					_id : ObjectId(blockId)
 				},
 				{projection: {
-					_id:1,page_name :1,name:1,body:1,modified:1,pages_descriptions:1
+					_id:1,page_name :1,title:1,name:1,body:1,modified:1,pages_descriptions:1
 				}},(err, result)=>{
 					if(err) return next(err);
 					if(!result){
@@ -123,6 +123,7 @@ function Block() {
 
 			let allData		= req.body;
 			req.body		= clone(allData.pages_descriptions[DEFAULT_LANGUAGE_MONGO_ID]);
+			let pageTitle	= (req.body.title)	? req.body.title	: "";
 			let pageBody	= (req.body.body)	? req.body.body	: "";
 
 			/** Check validation **/
@@ -131,9 +132,9 @@ function Block() {
 					notEmpty: true,
 					errorMessage: res.__("admin.block.please_enter_page_name")
 				},
-				'page_name': {
+				'title': {
 					notEmpty: true,
-					errorMessage: res.__("admin.block.please_enter_page_name")
+					errorMessage: res.__("admin.block.please_enter_title")
 				},
 				'body': {
 					notEmpty: true,
@@ -163,6 +164,7 @@ function Block() {
 				{$set: {
 					body				: 	pageBody,
 					name				: 	(req.body.name)	?	req.body.name	:"",
+					title				: 	(req.body.title)	?	req.body.title	:"",
 					page_name			: 	(req.body.page_name)	?	req.body.page_name	:"",
 					default_language_id	: 	DEFAULT_LANGUAGE_MONGO_ID,
 					pages_descriptions	: 	(allData.pages_descriptions) ? allData.pages_descriptions :{},
@@ -228,12 +230,17 @@ function Block() {
 			req.body		=	clone(allData.pages_descriptions[DEFAULT_LANGUAGE_MONGO_ID]);
 			let pageBody	= 	(req.body.body)	?	req.body.body	:"";
 			let pageName	= 	(req.body.name) ? 	req.body.name 	:"";
+			let pageTitle	= 	(req.body.title) ? 	req.body.title 	:"";
 
 			/** Check validation */
 			req.checkBody({
 				'name': {
 					notEmpty: true,
 					errorMessage: res.__("admin.block.please_enter_page_name")
+				},
+				'title': {
+					notEmpty: true,
+					errorMessage: res.__("admin.block.please_enter_title")
 				},
 				'body': {
 					notEmpty: true,
@@ -264,11 +271,11 @@ function Block() {
 
 			/** Make Slug */
 			getDatabaseSlug(options).then(response=>{
-				/** Save Cms details */
-				const pages = db.collection('pages');
-				pages.insertOne({
+				/** Save block details */
+				const blocks = db.collection('blocks');
+				blocks.insertOne({
 					name				:	pageName,
-					page_name			:	pageName,
+					title				:	pageTitle,
 					body				: 	pageBody,
 					slug				: 	(response && response.title)	?	response.title	:"",
 					default_language_id	: 	DEFAULT_LANGUAGE_MONGO_ID,
@@ -303,7 +310,7 @@ function Block() {
 				});
 			}).catch(next);
 		}
-	};//End addCms()
+	};//End addBlock()
 
 	/**
 	 * Function to upload ckeditor image

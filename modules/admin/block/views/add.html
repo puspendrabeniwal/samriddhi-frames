@@ -4,7 +4,7 @@
 			<div class="card">
 				<div class="header">
 					<h2>
-						<%= __("admin.cms.add_cms"); %>
+						<%= __("admin.system.add"); %>
 					</h2>
 					<ul class="header-dropdown m-r--5 btn-right-top-margin">
 						<li>
@@ -41,6 +41,24 @@
 													</div>
 													<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
 														<span id="name_error" class="error"></span>
+													<% } %>
+												</div>
+											</div>
+										</div>
+										<div class="row clearfix">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="form-line">
+														<label for="title_<%= languageCode; %>" class="control-label">
+															<%= __("admin.block.title"); %>
+															<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+																<span class="required"> *</span>
+															<% } %> 
+														</label>
+														<input type="text" id="title_<%= languageCode; %>" class="form-control" name="pages_descriptions[<%=languageId%>][title]"/>
+													</div>
+													<% if(languageCode ==  DEFAULT_LANGUAGE_CODE){ %>
+														<span id="title_error" class="error"></span>
 													<% } %>
 												</div>
 											</div>

@@ -13,6 +13,7 @@ const {ObjectId}	= require("mongodb");
 const dateFormat	= require("dateformat");
 const {exec} 		= require("child_process");
 const {generate} 	= require("randomstring");
+const { log } = require("console");
 
 /**
  * Function for parse validation
@@ -559,9 +560,9 @@ moveUploadedFile = (req,res,options)=>{
 
 		/** Create new folder of this month **/
 		let newFolder	= 	(newDate("","mmm")+ newDate("","yyyy")).toUpperCase()+'/';
-		createFolder(filePath+newFolder);
+		//createFolder(filePath+newFolder);
 
-		let newFileName 	= newFolder + Date.now()+ '-' +changeFileName(imageName);
+		let newFileName 	= changeFileName(imageName);
 		let uploadedFile	= filePath+newFileName;
 
 		/** move image to folder*/
@@ -573,30 +574,31 @@ moveUploadedFile = (req,res,options)=>{
 					message	:	res.__("admin.system.something_going_wrong_please_try_again")
 				});
 			}
-
+			resolve({status : STATUS_SUCCESS, fileName:	newFileName});
 			/** check mime type*/
-			exec('file --mime-type -b '+uploadedFile,(err, out, code)=>{
-				if (allowedMimeTypes.indexOf(out.trim()) == -1){
-					unlink(uploadedFile,(err)=>{
-						if (err){
-							/** Send error response **/
-							return resolve({
-								status	: 	STATUS_ERROR,
-								message	:	res.__("admin.system.something_going_wrong_please_try_again")
-							});
-						}
+			// exec('file --mime-type -b '+uploadedFile,(err, out, code)=>{
+			// 	console.log(uploadedFile);
+			// 	if (allowedMimeTypes.indexOf(out.trim()) == -1){
+			// 		unlink(uploadedFile,(err)=>{
+			// 			if (err){
+			// 				/** Send error response **/
+			// 				return resolve({
+			// 					status	: 	STATUS_ERROR,
+			// 					message	:	res.__("admin.system.something_going_wrong_please_try_again")
+			// 				});
+			// 			}
 
-						/** Send error response **/
-						resolve({
-							status	: 	STATUS_ERROR,
-							message	:	allowedMimeError
-						});
-					});
-				}else{
-					/** Send success response **/
-					resolve({status : STATUS_SUCCESS, fileName:	newFileName});
-				}
-			});
+			// 			/** Send error response **/
+			// 			resolve({
+			// 				status	: 	STATUS_ERROR,
+			// 				message	:	allowedMimeError
+			// 			});
+			// 		});
+			// 	}else{
+			// 		/** Send success response **/
+			// 		resolve({status : STATUS_SUCCESS, fileName:	newFileName});
+			// 	}
+			// });
 		});
 	});
 };//End moveUploadedFile()
@@ -1138,7 +1140,7 @@ getRandomString = (req,res,options)=>{
  */
 createFolder = (path)=>{
 	return new Promise(resolve=>{
-		let filePathData 	= path.split('/');
+		let filePathData 	= path.split(['/']);
 		let fullPath 		= "/";
 		if(filePathData.length>0){
 			asyncEach(filePathData,(folderName, asyncCallback)=>{

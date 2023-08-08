@@ -64,10 +64,12 @@
 					<table id="datatable-listing" class="row-border full-length-header hover table table-bordered cb-data-table" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th width="20%"><%= __("admin.contact.name");%></th>
-								<th width="20%"><%= __("admin.contact.email");%></th>
-								<th width="40%"><%= __("admin.contact.message");%></th>
-								<th width="20%"><%= __("admin.system.created");%></th>
+								<th width="15%"><%= __("admin.contact.name");%></th>
+								<th width="15%"><%= __("admin.contact.email");%></th>
+								<th width="15%"><%= __("admin.contact.phone");%></th>
+								<th width="15%"><%= __("admin.contact.city");%></th>
+								<th width="25%"><%= __("admin.contact.message");%></th>
+								<th width="15%"><%= __("admin.system.created");%></th>
 							</tr>
 						</thead>
 					</table>
@@ -91,16 +93,18 @@
 			"fnStateLoad"	: function (oSettings) {
 				return JSON.parse( localStorage.getItem('DataTables') );
 			},
-			"order"		: 	[[3, "desc" ]],
+			"order"		: 	[[5, "desc" ]],
 			"sDom"		:	"ltipr",
 			"serverSide": 	true,
 			"scrollX"	: 	true,
 			"lengthMenu":	PAGING_LENGTH_MENU,
 			"columns"	: 	[
-				{ "data": 'full_name' },
+				{ "data": 'name' },
 				{ "data": 'email' },
+				{ "data": 'phone' },
+				{ "data": 'city' },
 				{
-					"data": 'comments',
+					"data": 'message',
 					"searchable" : 	false,
 					"orderable"  :   false,
 					"render" 	 : 	function(comments){

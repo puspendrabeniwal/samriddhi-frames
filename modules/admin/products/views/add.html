@@ -33,20 +33,10 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <label for="product_type" class="control-label"><%= __('admin.product.select_category'); %><span class="required"> * </span> </label>
-                                        <select name="category"class="form-control show-tick">
-                                            <option value=""><%=__("admin.product.select_category");%></option>
-                                            <%
-                                            if(categories.length > 0){
-                                                categories.map(records=>{
-                                                    %>
-                                                    <option value="<%=records.id%>"><%=records.name%></option>    
-                                                <%      
-                                                });
-                                            } %>
-                                        </select>
+                                        <label for="sake_meter" class="control-label"><%= __('admin.product.sake_meter'); %><span class="required"> * </span> </label>
+                                        <input name="sake_meter" id="sake_meter" type="text" class="form-control"/>
                                     </div>
-                                    <span id="category_error" class="error"></span>
+                                    <span id="sake_meter_error" class="error"></span>
                                 </div>
                             </div>
                         </div>

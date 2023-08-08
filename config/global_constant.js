@@ -1,5 +1,5 @@
 /** Website root directory path */
-WEBSITE_ROOT_PATH	=	 '/opt/render/project/src/';
+WEBSITE_ROOT_PATH	=(process.env.PWD) ? process.env.PWD : process.cwd()+"/"
 
 /** Website Push notification server key for Android devices */
 WEBSITE_PN_ANDROID_SERVER_KEY =	process.env.ANDROID_SERVER_KEY;
@@ -58,6 +58,10 @@ WEBSITE_ADMIN_IMG_URL 			= 	WEBSITE_ADMIN_FILES_URL + "images/";
 WEBSITE_ADMIN_JS_PLUGIN_PATH	= 	WEBSITE_ADMIN_FILES_URL + "plugins/";
 /** Admin Modules root path */
 WEBSITE_ADMIN_MODULES_PATH		= 	WEBSITE_ROOT_PATH + "modules/"+ADMIN_FOLDER_NAME+"/";
+
+/** Front Modules root path */
+WEBSITE_FRONT_MODULES_PATH		= 	WEBSITE_ROOT_PATH + "modules/frontend/";
+
 /** Admin layout root path */
 WEBSITE_ADMIN_LAYOUT_PATH		= 	WEBSITE_ROOT_PATH + "modules/"+ADMIN_FOLDER_NAME+"/layouts/";
 
@@ -205,6 +209,11 @@ ADMIN_LOGGED_IN_COOKIE_EXPIRE_TIME = 14 * ONE_DAY_TIMESTAMP;
 STATUS_SUCCESS 	= "success";
 STATUS_ERROR 	= "error";
 
+/** Type of API Status */
+API_STATUS_SUCCESS 	= true;
+API_STATUS_ERROR 	= false;
+
+
 /** Show / Hide "Stay Signed In" Option in admin */
 ALLOWED_ADMIN_TO_SET_COOKIE	=	DEACTIVE;
 
@@ -244,7 +253,7 @@ ALLOWED_FILE_MIME_ERROR_MESSAGE		= 	"Please select valid mime type, Valid mime t
 ALLOWED_IMAGE_EXTENSIONS 			=	["jpg","jpeg","png"];
 ALLOWED_IMAGE_ERROR_MESSAGE			= 	"Please select valid file, Valid file extensions are "+ALLOWED_IMAGE_EXTENSIONS.join(", ")+".";
 
-ALLOWED_IMAGE_MIME_EXTENSIONS 		= 	["image/jpg","image/jpeg","image/png","application/pdf"];
+ALLOWED_IMAGE_MIME_EXTENSIONS 		= 	["image/jpg","image/jpeg","image/png"];
 ALLOWED_IMAGE_MIME_ERROR_MESSAGE	= 	"Please select valid mime type, Valid mime types are "+ALLOWED_IMAGE_MIME_EXTENSIONS.join(", ")+".";
 IMAGE_RESOLUTION		 			=	"1202*424";
 
@@ -534,11 +543,6 @@ NOT_COMPLETED	=	0;
 /** Constant for latest causes limit on  */
 LATEST_DASHBOARD_CAUSES_LIMIT =	3;
 
-COUNTRY_STATE_CITY_URL				= 	WEBSITE_URL+ADMIN_NAME+"/country_state_city";
-COUNTRY_INDIA 						=   "5b56b1aff190ae08d94474cd";
-
-KYC_SEND_TYPE_ONE 		= 	0;
-KYC_SEND_TYPE_TWO		=	1;
 
 
 MAIL_SENT 		= 	1;
@@ -547,218 +551,5 @@ FORM_COMPLETE 	= 	3;
 
 SUBSCRIBED		=	1;
 
-/*** Distributor char limit*/
-DISTRIBUTOR_NAME_MIN_LENGTH = 10;
-DISTRIBUTOR_NAME_MAX_LENGTH = 500;
-DISTRIBUTOR_ADDRESS_MIN_LENGTH = 10;
-DISTRIBUTOR_ADDRESS_MAX_LENGTH = 1000;
-FULLSTATENAME = [
-	{
-		state_code : "HI",
-		state_name : "Hawaii"
-	},
-	{
-		state_code : "AK",
-		state_name : "Alaska"
-	},
-	{
-		state_code : "FL",
-		state_name : "Florida"
-	},
-	{
-		state_code : "SC",
-		state_name : "South Carolina"
-	},
-	{
-		state_code : "GA",
-		state_name : "Georgia"
-	},
-	{
-		state_code : "AL",
-		state_name : "Alabama"
-	},
-	{
-		state_code : "NC",
-		state_name : "North Carolina"
-	},
-	{
-		state_code : "TN",
-		state_name : "Tennessee"
-	},
-	{
-		state_code : "RI",
-		state_name : "Rhode Island"
-	},
-	{
-		state_code : "CT",
-		state_name : "Connecticut"
-	},
-	{
-		state_code : "MA",
-		state_name : "Massachusetts"
-	},
-	{
-		state_code : "ME",
-		state_name : "Maine"
-	},
-	{
-		state_code : "NH",
-		state_name : "New Hampshire"
-	},
-	{
-		state_code : "VT",
-		state_name : "Vermont"
-	},
-	{
-		state_code : "NY",
-		state_name : "New York"
-	},
-	{
-		state_code : "NJ",
-		state_name : "New Jersey"
-	},
-	{
-		state_code : "PA",
-		state_name : "Pennsylvania"
-	},
-	{
-		state_code : "DE",
-		state_name : "Delaware"
-	},
-	{
-		state_code : "MD",
-		state_name : "Maryland"
-	},
-	{
-		state_code : "WV",
-		state_name : "West Virginia"
-	},
-	{
-		state_code : "KY",
-		state_name : "Kentucky"
-	},
-	{
-		state_code : "OH",
-		state_name : "Ohio"
-	},
-	{
-		state_code : "MI",
-		state_name : "Michigan"
-	},
-	{
-		state_code : "WY",
-		state_name : "Wyoming"
-	},
-	{
-		state_code : "MT",
-		state_name : "Montana"
-	},
-	{
-		state_code : "ID",
-		state_name : "Idaho"
-	},
-	{
-		state_code : "WA",
-		state_name : "Washington"
-	},
-	{
-		state_code : "TX",
-		state_name : "Texas"
-	},
-	{
-		state_code : "CA",
-		state_name : "California"
-	},
-	{
-		state_code : "AZ",
-		state_name : "Arizona"
-	},
-	{
-		state_code : "NV",
-		state_name : "Nevada"
-	},
-	{
-		state_code : "UT",
-		state_name : "Utah"
-	},
-	{
-		state_code : "CO",
-		state_name : "Colorado"
-	},
-	{
-		state_code : "NM",
-		state_name : "New Mexico"
-	},
-	{
-		state_code : "OR",
-		state_name : "Oregon"
-	},
-	{
-		state_code : "ND",
-		state_name : "North Dakota"
-	},
-	{
-		state_code : "SD",
-		state_name : "South Dakota"
-	},
-	{
-		state_code : "NE",
-		state_name : "Nebraska"
-	},
-	{
-		state_code : "IA",
-		state_name : "Iowa"
-	},
-	{
-		state_code : "MS",
-		state_name : "Mississippi"
-	},
-	{
-		state_code : "IN",
-		state_name : "Indiana"
-	},
-	{
-		state_code : "IL",
-		state_name : "Illinois"
-	},
-	{
-		state_code : "MN",
-		state_name : "Minnesota"
-	},
-	{
-		state_code : "WI",
-		state_name : "Wisconsin"
-	},
-	{
-		state_code : "MO",
-		state_name : "Missouri"
-	},
-	{
-		state_code : "AR",
-		state_name : "Arkansas"
-	},
-	{
-		state_code : "OK",
-		state_name : "Oklahoma"
-	},
-	{
-		state_code : "KS",
-		state_name : "Kansas"
-	},
-	{
-		state_code : "MO",
-		state_name : "Missouri"
-	},
-	{
-		state_code : "LA",
-		state_name : "Louisiana"
-	},
-	{
-		state_code : "VA",
-		state_name : "Virginia"
-	},
-	{
-		state_code : "DC",
-		state_name : "Washington D.C."
-	}
-]
+
+

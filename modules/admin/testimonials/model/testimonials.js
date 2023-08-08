@@ -185,7 +185,7 @@ function Testimonials() {
 						updateData.image = bannerImage ? bannerImage : oldimage;
 
 						/** Update testimonial data **/
-						testimonials.updateOne({ _id: ObjectId(bannerId) }, { $set: updateData }, (updateErr, result) => {
+						testimonials.updateOne({ _id: ObjectId(testimonialId) }, { $set: updateData }, (updateErr, result) => {
 							if (updateErr) return next(updateErr);
 							/** Send success response **/
 							req.flash(STATUS_SUCCESS, res.__("admin.testimonial.details_has_been_updated_successfully"));
@@ -245,7 +245,7 @@ function Testimonials() {
 
 			if (!req.files || !req.files.image) {
 				if (!errors) errors = [];
-				errors.push({ 'param': 'image', 'msg': res.__("admin.testimonial.please_select_banner_image") });
+				errors.push({ 'param': 'image', 'msg': res.__("admin.testimonial.please_select_image") });
 			}
 			if (errors) {
 				/** Send error response */

@@ -275,6 +275,7 @@ module.exports = {
 				next();
 			}
 		});
+
 		/** Include Users Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"users/routes");
 
@@ -326,10 +327,16 @@ module.exports = {
 		/** Include distributors Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"distributors/routes");
 
+
+		
 		/** Include newsletter Module **/
 		require(WEBSITE_ADMIN_MODULES_PATH+"newsletter/newsletter_subscriber_routes");
 		require(WEBSITE_ADMIN_MODULES_PATH+"newsletter/newsletter_template_routes");
 		require(WEBSITE_ADMIN_MODULES_PATH+"newsletter/scheduled_newsletter_routes");
+
+
+		require(WEBSITE_FRONT_MODULES_PATH+"users/routes");
+
 
 		/** Route is used to render 404 page admin*/
 		app.get(FRONT_END_NAME+ADMIN_NAME+"/*", function(req, res){

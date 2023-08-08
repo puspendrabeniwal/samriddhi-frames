@@ -23,12 +23,12 @@
 						<div class="row clearfix">
                             <div class="col-sm-12 align-center">
                                 <div class="form-group add-image">
-                                    <input name="banner_image" id="banner_image" class="form-control image-input-file" type="file"/>
+                                    <input name="image" id="image" class="form-control image-input-file" type="file"/>
 									<input name="old_image" id="old_image" class="form-control image-input-file" type="hidden" value="<%= data.banner_image?data.banner_image:''%>"/>
 									
-                                    <span class="help-inline required banner_image" id="ContentTypeNameSpan">
+                                    <span class="help-inline required image" id="ContentTypeNameSpan">
                                         <div id="pImage">
-                                            <img src="<%=data.full_image_path ? data.full_image_path :'' %>" alt="Banner image" class="profileImage" />
+                                            <img src="<%=data.full_image_path ? data.full_image_path :'' %>" alt="image" class="profileImage" />
                                         </div>
                                     </span>
                                     <div class="m-t-10">
@@ -36,7 +36,7 @@
                                             <%= __("admin.banner.upload_image"); %>
                                         </a>
                                     </div>
-                                    <span id="banner_image_error" class="error"></span>
+                                    <span id="image_error" class="error"></span>
                                 </div>
                             </div>
                         </div>
@@ -99,35 +99,35 @@
 			}
 		});
 	});
-            /**
-             * User image Upload
-             */
-			 $(document).on("click", ".changePhoto", function(){
-                if(!$(".add-image #banner_image").hasClass("added")){
-                    $(".add-image #banner_image").trigger("click");
-                    $(".add-image #banner_image").addClass("added");
-                    window.setTimeout(function(){
-                        $(".add-image #banner_image").removeClass("added");
-                    },500);
-                }
-            });
+	/**
+	 * User image Upload
+	 */
+		$(document).on("click", ".changePhoto", function(){
+		if(!$(".add-image #image").hasClass("added")){
+			$(".add-image #image").trigger("click");
+			$(".add-image #image").addClass("added");
+			window.setTimeout(function(){
+				$(".add-image #image").removeClass("added");
+			},500);
+		}
+	});
 
-            /**
-             *Show user image after select
-             */
-            $("#banner_image").on("change", function(){
-                var files = !!this.files ? this.files : [];
-                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+	/**
+	 *Show user image after select
+		*/
+	$("#image").on("change", function(){
+		var files = !!this.files ? this.files : [];
+		if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
-                if (/^image/.test( files[0].type)){
-                    // only image file
-                    var reader = new FileReader(); // instance of the FileReader
-                    reader.readAsDataURL(files[0]); // read the local file
-                    reader.onloadend = function(){
+		if (/^image/.test( files[0].type)){
+			// only image file
+			var reader = new FileReader(); // instance of the FileReader
+			reader.readAsDataURL(files[0]); // read the local file
+			reader.onloadend = function(){
 
-                        $("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
-                    }
-                }
-                $("span #banner_image_error").text("");
-            });
+				$("#pImage").html("<img src='"+this.result+"' class='profileImage' >");
+			}
+		}
+		$("span #image_error").text("");
+	});
 </script>

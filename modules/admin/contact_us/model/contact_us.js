@@ -23,7 +23,7 @@ function ContactUs() {
 				asyncParallel({
 					records :(callback)=>{
 						/** Get list of  Pricing Package's **/
-						collection.find(dataTableConfig.conditions,{projection: {_id:1,full_name:1,email:1,comments:1,created:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err, result)=>{
+						collection.find(dataTableConfig.conditions,{projection: {_id:1,name:1,email:1,phone:1,message:1,city:1,created:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err, result)=>{
 							callback(err, result);
 						});  
 					},

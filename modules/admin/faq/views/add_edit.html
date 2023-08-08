@@ -19,38 +19,14 @@
 				<div class="body">
 					<form id="add-pricing-packages" data-submit-btn-id="pricing-packages-add-btn-id" method="post" class="on_click_submit" role="form">
 						<div class="row clearfix">
-							<div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                    	<label for="faq_category" class="control-label">
-											<%= __("faq.faq_category"); %><span class="required"> * </span>
-										</label>
-                                        <select class="form-control show-tick search_by_status" id="faq_category" name="faq_category">
-                                            <option value=""><%=__("admin.faq.select_faq_category");%></option>
-                                            <%
-                            				selectFaqCategory 		= 	(result.faq_category)   		? String(result.faq_category) 		:"";
-                                            if(faqCategories && faqCategories.length > 0){
-                                                faqCategories.map(faq_category =>{  
-                                                var selectedFlag    = (typeof faq_category.id !== typeof undefined && faq_category.id  && faq_category.id == selectFaqCategory) ? "selected" : "";
-                                                %>
-												<option value="<%=faq_category.id%>" <%=selectedFlag%> ><%=faq_category.name%></option>
-                                            <%      
-                                                });
-                                            } %>
-                                        </select>
-                                    </div>
-                                    <span id="faq_category_error" class="error"></span>
-                                </div>
-                            </div>
-							<div class="col-sm-6">
+							<div class="col-sm-12">
 								<div class="form-group">
 									<div class="form-line">
-										<label for="amount" class="control-label">
+										<label for="order" class="control-label">
 											<%= __("admin.faq.order"); %><span class="required"> * </span>
 										</label>
 										<input type="text" id="order" class="form-control" name="order" value="<%=(result.order) ? result.order :''%>"/>
 									</div>
-									
 									<span id="order_error" class="error"></span>
 								</div>
 							</div>

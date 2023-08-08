@@ -63,11 +63,10 @@
 					<table id="datatable-listing" class="row-border full-length-header hover table table-bordered cb-data-table" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th width="20%"><%= __("admin.faq.question");%></th>
-								<th width="20%"><%= __("admin.faq.answer");%></th>
-								<th width="20%"><%= __("admin.faq.order");%></th>
-								<th width="20%"><%= __("faq.faq_category");%></th>
-								<th width="20%"><%= __("admin.system.modified");%></th>
+								<th width="25ṣ%"><%= __("admin.faq.question");%></th>
+								<th width="25%"><%= __("admin.faq.answer");%></th>
+								<th width="25%"><%= __("admin.faq.order");%></th>
+								<th width="25%"><%= __("admin.system.modified");%></th>
 								<th><%= __("admin.system.action"); %></th>
 							</tr>
 						</thead>
@@ -92,7 +91,7 @@
 			"fnStateLoad"	: function (oSettings) {
 				return JSON.parse( localStorage.getItem('DataTables') );
 			},
-			"order"		: 	[[4, "desc" ]],
+			"order"		: 	[[3, "desc" ]],
 			"sDom"		:	"ltipr",
 			"serverSide": 	true,
 			"scrollX"	: 	true,
@@ -109,12 +108,6 @@
 					}
 				},
 				{ "data": 'order' },
-				{
-					"data"			: 	'faq_category_name',
-					"render" 		: 	function(faq_category_name){
-						return (faq_category_name) ? faq_category_name :"N/A" ;
-					}
-				},
 				{
 					"data"			: 	'modified',
 					"searchable"	: 	false,

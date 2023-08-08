@@ -22,24 +22,9 @@ function Faq() {
 				asyncParallel({
 					records :(callback)=>{
 						/** Get list of  Pricing Package's **/
-						collection.aggregate([
-							{$match : dataTableConfig.conditions},
-							{$sort 	: dataTableConfig.sort_conditions},
-							{$limit : limit},
-							{$skip  : skip},
-							{$lookup: {
-								from 		: 	"masters",
-								localField	: 	"faq_category",
-								foreignField: 	"_id",
-								as 			: 	"faq_category_data"
-							}},
-							{$project : {question:1,faq_ans:1,order:1,faq_category:1,modified:1,user_type:1,faq_category_name:{"$arrayElemAt":["$faq_category_data.name",0]}}},
-						]).toArray((err, result)=>{
+						collection.find(dataTableConfig.conditions,{projection: {_id:1,question:1,faq_ans:1,order:1,modified:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err, result)=>{
 							callback(err, result);
 						}); 
-						/*collection.find(dataTableConfig.conditions,{projection: {_id:1,question:1,faq_ans:1,order:1,faq_category:1,modified:1}}).collation(COLLATION_VALUE).sort(dataTableConfig.sort_conditions).limit(limit).skip(skip).toArray((err, result)=>{
-							callback(err, result);
-						}); */ 
 					},
 					total_records:(callback)=>{
 						/** Get total number of records in  Faq collection **/
@@ -144,10 +129,6 @@ function Faq() {
 						errorMessage: res.__("admin.faq.please_only_numeric_order",1)
 					}
 				},
-				'faq_category': {
-					notEmpty: true,
-					errorMessage: res.__("admin.faq.please_enter_faq_category"),
-				},
 				'faq_ans': {
 					notEmpty: true,
 					isLength	:	{
@@ -214,7 +195,6 @@ function Faq() {
 						question			:	(req.body.question) 	? req.body.question 				: '',
 						faq_ans				: 	(req.body.faq_ans)  	? req.body.faq_ans 					: '',
 						order 	 			:	(req.body.order)   		? parseInt(req.body.order)  		: 0,
-						faq_category 		: 	(req.body.faq_category) ? ObjectId(req.body.faq_category) 	: '',
 						modified 			: 	getUtcDate()
 					},
 					$setOnInsert: {
@@ -251,25 +231,11 @@ function Faq() {
 			let breadcrumbs = (isEditable) ?  'admin/faqs/edit' :'admin/faqs/add';
 			req.breadcrumbs(BREADCRUMBS[breadcrumbs]);
 
-			/** Set options **/
-			let options ={type : ['faq_category']};
-			/** Get faq master list **/
-			getMasterList(req,res,next,options).then(response=>{
-				if(response.status !== STATUS_SUCCESS) return res.send({status : STATUS_ERROR, message : res.__("system.something_going_wrong_please_try_again")});
-				
-				/** Send  susscess response */
-				let finalResult = (response.result && response.result['faq_category']) ? response.result['faq_category'] :[];
-
-
-				res.render('add_edit',{
-					result		       : result,
-					is_editable	       : isEditable,
-					dynamic_variable   : res.__('admin.faqs.pricing_package'),
-					faqCategories	   : finalResult
-				});
-
-			}).catch(next);
-			
+			res.render('add_edit',{
+				result		       : result,
+				is_editable	       : isEditable,
+				dynamic_variable   : res.__('admin.faqs.pricing_package'),
+			});	
 		}
 	};//End addEditFaq()
 

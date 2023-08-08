@@ -52,7 +52,8 @@
 						<thead>
 							<tr>
 								<th width="20%"><%= __("admin.cms.page_name"); %></th>
-								<th width="50%"><%= __("admin.cms.page_description"); %></th>
+								<th width="20%"><%= __("admin.block.title"); %></th>
+								<th width="30%"><%= __("admin.cms.page_description"); %></th>
 								<th width="20%"><%= __("admin.system.modified"); %> </th>
 								<th width="10%"><%= __("admin.system.action"); %></th>
 							</tr>
@@ -84,6 +85,7 @@
 				"lengthMenu":	PAGING_LENGTH_MENU,
 				"columns"	: 	[
 					{ "data": 'name' },
+					{ "data": 'title' },
 					{
 						"data": 'body',
 						"searchable" : 	false,
