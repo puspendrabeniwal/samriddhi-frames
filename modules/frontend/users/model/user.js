@@ -92,5 +92,94 @@ function User() {
                 });
             }
         }
+
+
+    /**
+     * Function for cms page
+     *
+     * @param req   As  Request Data
+     * @param res   As  Response Data
+     * @param next  As  Callback argument to the middleware function
+     *
+     * @return render/json
+     */
+    this.getCms = (req, res)=>{
+        let slug = (req.params.slug) ? req.params.slug : "";
+        if(!slug){
+            return res.send({
+                "status"      : API_STATUS_ERROR,
+                "message"     : 'front.system.invalid_data',
+                "error"       : [],
+                "result"      : {}
+            });
+        }
+
+        let collection     = db.collection("pages");
+        collection.findOne({ "slug" : slug},(err,result)=>{
+
+            if(!err){
+                return res.send({
+                    "status"      : API_STATUS_SUCCESS,
+                    "message"     : '',
+                    "error"       : [],
+                    "result"      : result
+                });
+                
+            }else{
+                return res.send({
+                    "status"      : API_STATUS_ERROR,
+                    "message"     : res.__("front.system.something_went_wrong"),
+                    "error"       : [],
+                    "result"      : {}
+                });
+            }
+        })
+    }
+
+       /**
+     * Function for cms page
+     *
+     * @param req   As  Request Data
+     * @param res   As  Response Data
+     * @param next  As  Callback argument to the middleware function
+     *
+     * @return render/json
+     */
+       this.getBlock = (req, res)=>{
+        let pageName = (req.params.page_name) ? req.params.page_name : "";
+        if(!pageName){
+            return res.send({
+                "status"      : API_STATUS_ERROR,
+                "message"     : 'front.system.invalid_data',
+                "error"       : [],
+                "result"      : {}
+            });
+        }
+
+        let collection     = db.collection("blocks");
+        collection.find({ "slug" : pageName}).toArray((err,result)=>{
+
+            if(!err){
+                let newResult = {};
+                result.map(records=>{
+                    newResult[records._id] = records.pages_descriptions["64cbb0a566e5b98b73fcc23d"]
+                })
+                return res.send({
+                    "status"      : API_STATUS_SUCCESS,
+                    "message"     : '',
+                    "error"       : [],
+                    "result"      : newResult
+                });
+                
+            }else{
+                return res.send({
+                    "status"      : API_STATUS_ERROR,
+                    "message"     : res.__("front.system.something_went_wrong"),
+                    "error"       : [],
+                    "result"      : {}
+                });
+            }
+        })
+    }
 }
 module.exports = new User();

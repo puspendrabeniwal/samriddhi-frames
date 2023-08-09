@@ -7,3 +7,14 @@ const frontUser	    =   require(modelPath);
 app.post(modulePath+"contact_us",(req, res)=>{
     frontUser.contactUs(req, res);
 });
+
+/** Routing is used to get cms*/
+app.all(modulePath+"cms/:slug",(req, res)=>{
+    frontUser.getCms(req, res);
+});
+
+/** Routing is used to get block*/
+app.all(modulePath+"block/:page_name",(req, res)=>{
+    frontUser.getBlock(req, res);
+});
+
