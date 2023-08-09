@@ -67,24 +67,24 @@ function User() {
                         created : getUtcDate()
                     },(err,result)=>{
                         if(!err){
-                            res.send({
-                                status      : API_STATUS_SUCCESS,
-                                message     : res.__("front.user.thanks_for_contact_us"),
-                                error       : [],
-                                result : []
+                            return res.send({
+                                "status"      : API_STATUS_SUCCESS,
+                                "message"     : res.__("front.user.thanks_for_contact_us"),
+                                "error"       : [],
+                                "result" : []
                             });
                         }else{
-                            res.send({
-                                status      : API_STATUS_ERROR,
-                                message     : res.__("front.system.something_went_wrong"),
-                                error       : [],
-                                result : []
+                            return res.send({
+                                "status"      : API_STATUS_ERROR,
+                                "message"     : res.__("front.system.something_went_wrong"),
+                                "error"       : [],
+                                "result" : []
                             });
                         }
                     })
                 }
             }else{
-                res.send({
+                return res.send({
                     status      : API_STATUS_ERROR,
                     message     : res.__("front.system.something_went_wrong"),
                     error       : [],

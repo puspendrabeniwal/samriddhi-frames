@@ -90,6 +90,7 @@ RESUME_URL			=	WEBSITE_PUBLIC_UPLOADS_PATH+"resume/";
 /** For product images file directory path and url*/
 PRODUCTS_FILE_PATH	=	WEBSITE_UPLOADS_ROOT_PATH+"products/";
 PRODUCTS_URL		=	WEBSITE_PUBLIC_UPLOADS_PATH+"products/";
+PRODUCTS_URL_PATH		=	WEBSITE_PUBLIC_UPLOADS_PATH+"products/";
 
 /** For Master images file directory path and url*/
 MASTER_FILE_PATH		=	WEBSITE_UPLOADS_ROOT_PATH+"masters/";
