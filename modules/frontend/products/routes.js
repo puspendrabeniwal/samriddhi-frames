@@ -7,3 +7,8 @@ const frontProduct	    =   require(modelPath);
 app.all(modulePath+"products",(req, res)=>{
     frontProduct.productList(req, res);
 });
+
+/** Routing is used to get products detail*/
+app.all(modulePath+"product/:id",(req, res)=>{
+    frontProduct.productDetail(req, res);
+});
