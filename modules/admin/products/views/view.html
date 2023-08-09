@@ -48,12 +48,22 @@
                 <div class="body table-responsive" id="aniimated-thumbnials">
                     <table  class="row-border hover table table-bordered" cellspacing="0" width="100%">
                         <tr> 
+                            <th class="text-right"><%= __('admin.product.images'); %></th>     
+                            <td>
+                                <img class="img-responsive thumbnail" height="20%"  width="20%" src="<%= result.full_image_path%>" alt="Product Image"/>
+                            </td>
+                        </tr>
+                        <tr> 
                             <th class="text-right"><%= __('admin.product.product_name'); %></th>     
                             <td><%=(typeof result.product_name !== typeof undefined)   ? result.product_name  : 'N/A';%></td>
                         </tr>
                         <tr>
                             <th class="text-right"><%= __('admin.product.price'); %></th>
                             <td><%-(typeof result.price !== typeof undefined) ?  result.price : 'N/A'%></td>
+                        </tr>
+                        <tr>
+                            <th class="text-right"><%= __('admin.product.discount_percentage'); %>(%)</th>
+                            <td><%= (typeof result.discount_percentage !== typeof undefined) ? result.discount_percentage :"N/A";%></td>
                         </tr>
                         <tr>
                             <th class="text-right"><%= __('admin.product.discount_price'); %></th>
@@ -72,27 +82,6 @@
                             <td><%- status%></td>
                         </tr>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <div class="card">
-                <div class="header">
-                    <h2> Product Images </h2>
-                </div>
-                <div class="body">
-                    <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                            <a href="<%= result.full_image_path%> " data-sub-html="Demo Description">
-                                <img class="img-responsive thumbnail" src="<%= result.full_image_path%>"/>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

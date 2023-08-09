@@ -44,8 +44,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <label for="discount_price" class="control-label"><%= __('admin.product.discount_price'); %> <span class="required"> *</span> </label>
-                                        <input name="discount_price" id="discount_price" type="text" class="form-control" value="<%= (result.discount_price) ? result.discount_price :''%>"/>
+                                        <label for="discount_price" class="control-label"><%= __('admin.product.discount_percentage'); %> <span class="required"> *</span> </label>
+                                        <input name="discount_price" id="discount_price" type="text" class="form-control" value="<%= (result.discount_percentage) ? result.discount_percentage :''%>"/>
                                     </div>
                                     <span id="discount_price_error" class="error"></span>
                                 </div>
@@ -56,7 +56,7 @@
                                     <div class="file-group">
                                         <i><img src="https://icon-library.com/images/upload-icon-image/upload-icon-image-12.jpg"></i>
                                         <p class="file-text"><span class="red-text">Browse</span></p>
-                                        <input type="file" class="form-control" name="images" id="images" multiple="multiple"/>
+                                        <input type="file" class="form-control" name="images" id="images"/>
                                     </div>
                                     <span id="images_error" class="error"></span>
                                 </div>

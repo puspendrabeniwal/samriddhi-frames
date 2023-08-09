@@ -139,13 +139,23 @@ function Product() {
             });
 
             let productName      = (req.body.product_name)      ? req.body.product_name : '';
-            let price            = (req.body.price)             ? req.body.price : '';
-            let discountPrice   = (req.body.discount_price)    ? req.body.discount_price : '';
+            let price            = (req.body.price)             ? Number(req.body.price) : 0;
+            let discountPrice   = (req.body.discount_price)    ? Number(req.body.discount_price) : 0;
             let description      = (req.body.description)       ? req.body.description : '';
 
             
             /** parse Validation array  **/
             let errors = parseValidation(req.validationErrors(),req);
+
+            if(discountPrice > 100){
+                if(!errors) errors =[];
+                errors.push({'param':'discount_price','msg':res.__("admin.products.discount_price_should_not_be_gretaer_than_100")});
+            }
+
+            if(discountPrice > price){
+                if(!errors) errors =[];
+                errors.push({'param':'discount_price','msg':res.__("admin.products.discount_price_should_not_be_gretaer_than_price")});
+            }
 
             /** Product sheet images validation **/
             if(req.files && !req.files['images']){
@@ -161,11 +171,12 @@ function Product() {
                 });
             }
             
-
+            let discountPercentage = (price*discountPrice)/100;
             let insertedData = {
                 product_name        :   productName,
                 price               :   Number(price),
-                discount_price      :   Number(discountPrice),
+                discount_price      :   Number(price-discountPercentage),
+                discount_percentage :   Number(discountPrice),
                 description         :   description,
                 is_active           :   ACTIVE,
                 is_deleted          :   NOT_DELETED,
@@ -301,21 +312,43 @@ function Product() {
             });
 
             let productName      = (req.body.product_name)      ? req.body.product_name : '';
-            let price            = (req.body.price)             ? req.body.price : '';
-            let discountPrice    = (req.body.discount_price)    ? req.body.discount_price : '';
+            let price            = (req.body.price)             ? Number(req.body.price) : '';
+            let discountPrice    = (req.body.discount_price)    ? Number(req.body.discount_price) : '';
             let description      = (req.body.description)       ? req.body.description : '';
+
+            let discountPercentage = (price*discountPrice)/100;
             let updatedData = {
                 product_name : productName,
                 price : price,
-                discount_price : discountPrice,
+                discount_price : Number(price-discountPercentage),
+                discount_percentage : discountPrice,
                 description : description,
             }
 
             /** parse Validation array  **/
             let errors = parseValidation(req.validationErrors(),req);
+            if(discountPrice > 100){
+                if(!errors) errors =[];
+                errors.push({'param':'discount_price','msg':res.__("admin.products.discount_price_should_not_be_gretaer_than_100")});
+            }
+
+            if(discountPrice > price){
+                if(!errors) errors =[];
+                errors.push({'param':'discount_price','msg':res.__("admin.products.discount_price_should_not_be_gretaer_than_price")});
+            }
+
+            if(errors && errors.length != 0){
+                /** Send error response **/
+                return res.send({
+                    status  : STATUS_ERROR,
+                    message : errors,
+                });
+            }
+
             /** Set options for upload image **/
             let oldimage=   (req.body.old_image) ? req.body.old_image :"";
             let image   =   (req.files && req.files.images)  ?   req.files.images :"";
+
             let options =   {
                 'image'     :   image,
                 'filePath'  :   PRODUCTS_FILE_PATH,
@@ -324,6 +357,8 @@ function Product() {
 
             /** Upload user  image **/
             moveUploadedFile(req, res,options).then(response=>{
+                let productImage = (response.fileName) ? response.fileName : '';
+                updatedData['image'] = productImage;
                 if(response.status == STATUS_ERROR){                                            
                     /** Send error response **/
                     return res.send({
@@ -331,9 +366,6 @@ function Product() {
                         message : [{'param':'images','msg':response.message}],
                     });
                 }
-
-            
-
 
                 /** Save product data **/
                 let productId  = (req.params.id)   ?   req.params.id   :"";
@@ -394,7 +426,7 @@ function Product() {
         collection.aggregate([
             {$match : conditions},
             {$project:{
-                product_name  : 1, price : 1, discount_price : 1, description:1, slug:1, image:1,
+                product_name  : 1, price : 1, discount_percentage :1, discount_price : 1, description:1, slug:1, image:1,
             }}
         ]).toArray((err, results)=>{
             if(err) return next(err);

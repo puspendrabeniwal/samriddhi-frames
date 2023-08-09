@@ -14,7 +14,7 @@ function Products() {
             collection.find({
                 is_active : ACTIVE
             }).toArray((err,result)=>{
-                console.log(result)
+
                 if(!err){
                     let options = {
                         
