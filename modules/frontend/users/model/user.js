@@ -1,4 +1,4 @@
-
+const asyncParallel = require("async/parallel");
 function User() {
     /**
      * Function for contact
@@ -181,5 +181,49 @@ function User() {
             }
         })
     }
+
+    /**
+     * Function for get list of home
+     *
+     * @param req As Request Data
+     * @param res As Response Data
+     *
+     * @return render/json
+     */
+    this.homeData = (req, res)=>{
+
+            const faqs    = db.collection("faqs");
+            asyncParallel([
+                (callback)=>{
+                    /** Get list of faq's **/
+                    faqs.find().toArray((err, result)=>{
+                        callback(err, result);
+                    });
+                },
+                // (callback)=>{
+                //     /** Get total number of records in product collection **/
+                //     collection.countDocuments({},(err,countResult)=>{
+                //         callback(err, countResult);
+                //     });
+                // },
+                // (callback)=>{
+                //     /** Get filtered records couting in product **/
+                //     collection.countDocuments({},(err,filterContResult)=>{
+                //         callback(err, filterContResult);
+                //     });
+                // }
+            ],
+            (err,response)=>{
+                /** Send response **/
+                res.send({
+                    status          : (!err) ? API_STATUS_SUCCESS :API_STATUS_ERROR,
+                    faqs            : (response[0]) ? response[0] : [],
+                    // recordsFiltered : (response[2]) ? response[2] : 0,
+                    // recordsTotal    : (response[1]) ? response[1] : 0
+                });
+            });
+
+        
+    };//End getProductList()
 }
 module.exports = new User();

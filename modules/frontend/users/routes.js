@@ -18,3 +18,8 @@ app.all(modulePath+"block/:page_name",(req, res)=>{
     frontUser.getBlock(req, res);
 });
 
+/** Routing is used to get block*/
+app.all(modulePath+"home_data",(req, res)=>{
+    frontUser.homeData(req, res);
+});
+
