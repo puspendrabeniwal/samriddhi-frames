@@ -1,6 +1,7 @@
 /** Node express */
 const express	= 	require('express');
 const app 		=	express();
+const cors 		=	require('cors');
 app.use(cors())
 /**  Configure i18n options, this module is used for multi language site */
 const i18n 	= require("i18n");
