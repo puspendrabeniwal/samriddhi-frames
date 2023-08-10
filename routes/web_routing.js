@@ -334,9 +334,8 @@ module.exports = {
 		require(WEBSITE_ADMIN_MODULES_PATH+"newsletter/newsletter_template_routes");
 		require(WEBSITE_ADMIN_MODULES_PATH+"newsletter/scheduled_newsletter_routes");
 
-		/**API Routing **/
+
 		require(WEBSITE_FRONT_MODULES_PATH+"users/routes");
-		require(WEBSITE_FRONT_MODULES_PATH+"products/routes");
 
 
 		/** Route is used to render 404 page admin*/

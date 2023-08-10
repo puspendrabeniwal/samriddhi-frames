@@ -1,0 +1,12 @@
+{
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/cancellation-and-refund-policy/page": "app/cancellation-and-refund-policy/page.js",
+  "/about/page": "app/about/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/shipping-policy/page": "app/shipping-policy/page.js",
+  "/terms/page": "app/terms/page.js",
+  "/privacy/page": "app/privacy/page.js",
+  "/product/page": "app/product/page.js",
+  "/productDetail/[id]/page": "app/productDetail/[id]/page.js"
+}

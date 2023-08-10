@@ -1,0 +1,12 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/cancellation-and-refund-policy/page": "/cancellation-and-refund-policy",
+  "/about/page": "/about",
+  "/contact/page": "/contact",
+  "/shipping-policy/page": "/shipping-policy",
+  "/terms/page": "/terms",
+  "/privacy/page": "/privacy",
+  "/product/page": "/product",
+  "/productDetail/[id]/page": "/productDetail/[id]"
+}

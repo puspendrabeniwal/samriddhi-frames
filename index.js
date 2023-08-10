@@ -107,10 +107,7 @@ const fs 		= 	require("fs");
 //    console.log('Server listening on port' + process.env.PORT); 
 // });
 
-const cors = require('cors');
-app.use(cors({
-    origin: ['http://localhost:3000']
-}));
+
 const server = app.listen(process.env.PORT,()=>{
 	server.timeout = parseInt(process.env.MAX_EXECUTION_TIME);
     console.log('Server listening on port ' + process.env.PORT);
